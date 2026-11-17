@@ -2,794 +2,854 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Climate Change | Data Dumplings</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Dumplings | Climate Change</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<style>
+:root {
+  --bg: #f8f9f4;
+  --dark: #193c38;
+  --title: #486b70;
+  --muted: #658078;
+  --line: #dce7df;
+  --panel: #fffefa;
+  --green: #4c8178;
+}
 
-  <style>
-    :root {
-      --bg: #f8f9f4;
-      --dark: #193c38;
-      --title: #486b70;
-      --muted: #718b84;
-      --line: #d7e2dc;
-      --panel: #fffefa;
-    }
+* { box-sizing: border-box; }
 
-    * { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: "DM Sans", sans-serif;
+}
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--dark);
-      font-family: "DM Sans", sans-serif;
-    }
+.shell {
+  max-width: 1180px;
+  margin: auto;
+  padding: 25px 35px 45px;
+}
 
-    .ambient {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 540px;
-      background:
-        radial-gradient(ellipse at 85% 5%, #dcefe9, transparent 58%),
-        radial-gradient(ellipse at 10% 10%, #f4e9de, transparent 55%);
-      pointer-events: none;
-      z-index: -1;
-    }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+}
 
-    .shell {
-      max-width: 1200px;
-      margin: auto;
-      padding: 24px 35px 50px;
-    }
+.brand {
+  font: 700 19px "Space Grotesk", sans-serif;
+  letter-spacing: .03em;
+}
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 20px;
-      flex-wrap: wrap;
-    }
+.team {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
 
-    .brand {
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 700;
-      font-size: 19px;
-      letter-spacing: -.03em;
-    }
+.tag, .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  color: var(--muted);
+}
 
-    .team {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+.hero {
+  padding: 50px 0 42px;
+}
 
-    .tag {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      color: var(--muted);
-    }
+h1, h2, h3 {
+  font-family: "Space Grotesk", sans-serif;
+}
 
-    .intro {
-      padding: 52px 0 38px;
-    }
+h1 {
+  font-size: clamp(31px, 4.1vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  color: var(--title);
+  max-width: 1050px;
+  margin: 0 0 19px;
+}
 
-    h1 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(30px, 4.1vw, 52px);
-      line-height: 1.13;
-      letter-spacing: -.045em;
-      font-weight: 700;
-      color: var(--title);
-      max-width: 1000px;
-      margin: 0 0 20px;
-    }
+.subtitle {
+  max-width: 730px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
 
-    .subtitle {
-      max-width: 720px;
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--muted);
-      margin: 0;
-    }
+.dashboard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  box-shadow: 0 15px 45px #193c380b;
+  padding: 27px;
+}
 
-    .dashboard {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 26px;
-      box-shadow: 0 12px 38px #193c3808;
-    }
+.dash-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    .dash-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
+.dash-top h2 {
+  font-size: 23px;
+  letter-spacing: -.035em;
+  margin: 8px 0;
+}
 
-    .eyebrow {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 23px;
-      letter-spacing: -.035em;
-      margin: 8px 0;
-    }
+.group {
+  display: flex;
+  gap: 4px;
+  background: #eff4ef;
+  padding: 4px;
+  border-radius: 9px;
+}
 
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      align-items: center;
-    }
+button {
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 12px "DM Sans", sans-serif;
+  padding: 10px 14px;
+  cursor: pointer;
+}
 
-    .control-group {
-      display: flex;
-      gap: 3px;
-      background: #eff3ee;
-      padding: 4px;
-      border-radius: 9px;
-    }
+button.active {
+  background: white;
+  color: var(--dark);
+  box-shadow: 0 2px 8px #0000000b;
+}
 
-    button {
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 9px 13px;
-      border: 0;
-      border-radius: 7px;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-    }
+.note {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 10px 0 20px;
+  line-height: 1.6;
+}
 
-    button.active {
-      background: white;
-      color: var(--dark);
-      box-shadow: 0 2px 8px #0000000b;
-    }
+#chart {
+  position: relative;
+  width: 100%;
+}
 
-    .chart-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin: 8px 0 18px;
-      line-height: 1.6;
-    }
+#chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-    #chart {
-      position: relative;
-      width: 100%;
-    }
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  background: #193c38;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 9px;
+  font-size: 12px;
+  line-height: 1.7;
+  box-shadow: 0 8px 24px #0002;
+}
 
-    #chart svg {
-      width: 100%;
-      height: auto;
-      overflow: visible;
-      display: block;
-    }
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  flex-wrap: wrap;
+  margin: 15px 0 22px;
+}
 
-    .tooltip {
-      position: absolute;
-      pointer-events: none;
-      background: #193c38;
-      color: white;
-      padding: 11px 14px;
-      border-radius: 9px;
-      font-size: 12px;
-      line-height: 1.6;
-      opacity: 0;
-      z-index: 5;
-      box-shadow: 0 8px 24px #00000020;
-      white-space: nowrap;
-    }
+.legend button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+}
 
-    .legend {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding: 14px 0;
-    }
+.legend button.selected {
+  border-color: #a9cdbb;
+  background: #e9f4eb;
+  color: var(--dark);
+}
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--dark);
-      transition: opacity .2s;
-    }
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
 
-    .legend-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-    }
+.range {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
 
-    .range-section {
-      border-top: 1px solid var(--line);
-      margin-top: 15px;
-      padding-top: 21px;
-    }
+.range-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
 
-    .range-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      font-size: 12px;
-      font-weight: 600;
-    }
+.range-top span {
+  color: var(--muted);
+}
 
-    .range-header span {
-      color: var(--muted);
-    }
+.sliders {
+  display: flex;
+  gap: 25px;
+  margin-top: 16px;
+}
 
-    .sliders {
-      display: flex;
-      gap: 20px;
-      margin-top: 16px;
-    }
+.sliders label {
+  flex: 1;
+  color: var(--muted);
+  font-size: 11px;
+}
 
-    .sliders label {
-      flex: 1;
-      font-size: 11px;
-      color: var(--muted);
-    }
+input[type=range] {
+  width: 100%;
+  margin-top: 9px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
 
-    input[type="range"] {
-      width: 100%;
-      accent-color: #4c8178;
-      cursor: pointer;
-      margin-top: 8px;
-    }
+.disclosure {
+  background: #f4f3ec;
+  border-radius: 9px;
+  padding: 14px 16px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: #737c70;
+  line-height: 1.65;
+}
 
-    .disclosure {
-      margin-top: 20px;
-      padding: 13px 16px;
-      background: #f4f3ec;
-      border-radius: 9px;
-      color: #6d786f;
-      font-size: 12px;
-      line-height: 1.6;
-    }
+.writeup {
+  padding: 43px 0 30px;
+  border-bottom: 1px solid var(--line);
+}
 
-    .writeup {
-      padding: 45px 0 30px;
-      border-bottom: 1px solid var(--line);
-    }
+.writeup h2, .dataset h2 {
+  font-size: 24px;
+  letter-spacing: -.035em;
+  margin: 0 0 16px;
+}
 
-    .writeup h2, .dataset h2 {
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
+.writeup p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #617c74;
+  max-width: 980px;
+}
 
-    .writeup p {
-      max-width: 950px;
-      font-size: 15px;
-      line-height: 1.75;
-      color: #617d75;
-    }
+.dataset {
+  padding: 30px 0 42px;
+}
 
-    .dataset {
-      padding: 30px 0 40px;
-    }
+.dataset p {
+  max-width: 980px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #617c74;
+}
 
-    .dataset p {
-      max-width: 950px;
-      font-size: 13px;
-      line-height: 1.8;
-      color: #617d75;
-    }
+.dataset a {
+  color: #486b70;
+}
 
-    .dataset a {
-      color: #486b70;
-      text-underline-offset: 3px;
-    }
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
 
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--line);
-      padding-top: 20px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 700px) {
-      .shell { padding: 18px; }
-      .intro { padding: 35px 0 28px; }
-      .dashboard { padding: 16px; }
-      .sliders { flex-direction: column; gap: 12px; }
-      .legend { gap: 12px; }
-      h2 { font-size: 20px; }
-    }
-  </style>
+@media(max-width:700px) {
+  .shell { padding: 18px; }
+  .hero { padding: 35px 0; }
+  .dashboard { padding: 17px; }
+  .sliders { flex-direction: column; gap: 12px; }
+  .legend { gap: 5px; }
+  .dash-top h2 { font-size: 20px; }
+}
+</style>
 </head>
 
 <body>
-<div class="ambient"></div>
-
 <main class="shell">
 
-  <header class="top">
+<header>
+  <div>
+    <div class="brand">DATA DUMPLINGS</div>
+    <div class="team">
+      Jacey Chow · Weder Qin · Jingyun Xiong · Maggie Shao
+    </div>
+  </div>
+  <div class="tag">INTERACTIVE CLIMATE EXPLORER</div>
+</header>
+
+<section class="hero">
+  <h1>
+    Climate Change: Global Temperature Trends
+    and Future Projections
+  </h1>
+  <p class="subtitle">
+    Exploring historical warming patterns and future climate
+    projections across five continents.
+  </p>
+</section>
+
+<section class="dashboard">
+
+  <div class="dash-top">
     <div>
-      <div class="brand">DATA DUMPLINGS</div>
-      <div class="team">
-        Jacey Chow · Weder Qin · Jingyun Xiong · Maggie Shao
-      </div>
-    </div>
-    <div class="tag">INTERACTIVE CLIMATE EXPLORER</div>
-  </header>
-
-  <section class="intro">
-    <h1>
-      Climate Change: Global Temperature Trends
-      and Future Projections
-    </h1>
-    <p class="subtitle">
-      Exploring how climate patterns differ across five continents,
-      from historical warming to possible future changes.
-    </p>
-  </section>
-
-  <section class="dashboard">
-    <div class="dash-top">
-      <div>
-        <div class="eyebrow">Explore the data</div>
-        <h2 id="chart-title">Temperature trends by continent</h2>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <button id="tempBtn" class="active">Temperature</button>
-          <button id="co2Btn">CO₂</button>
-        </div>
-
-        <div class="control-group">
-          <button id="histBtn" class="active">Historical</button>
-          <button id="futureBtn">Future</button>
-        </div>
-      </div>
+      <div class="eyebrow">EXPLORE THE DATA</div>
+      <h2 id="chartTitle">Temperature trends by continent</h2>
     </div>
 
-    <p class="chart-note" id="chart-note">
-      Historical period · 1950–2014 · Illustrative prototype data
-    </p>
-
-    <div id="chart">
-      <div class="tooltip" id="tooltip"></div>
-    </div>
-
-    <div class="legend" id="legend"></div>
-
-    <div class="range-section">
-      <div class="range-header">
-        <div>Explore a time period</div>
-        <span id="rangeLabel">1950 – 2014</span>
+    <div class="controls">
+      <div class="group">
+        <button id="tempBtn" class="active">Temperature</button>
+        <button id="co2Btn">CO₂</button>
       </div>
 
-      <div class="sliders">
-        <label>
-          Start year
-          <input id="startYear" type="range" min="1950" max="2013" value="1950">
-        </label>
-        <label>
-          End year
-          <input id="endYear" type="range" min="1951" max="2014" value="2014">
-        </label>
+      <div class="group">
+        <button id="histBtn" class="active">Historical</button>
+        <button id="futureBtn">Future</button>
       </div>
     </div>
+  </div>
 
-    <div class="disclosure">
-      <strong>Prototype data notice:</strong>
-      This chart currently uses illustrative demo values to test the
-      visualization and interactions. These are not actual CMIP6
-      model results or observed temperatures.
+  <p class="note" id="chartNote">
+    Historical · 1950–2014 · Illustrative demo data
+  </p>
+
+  <div id="chart">
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="range">
+    <div class="range-top">
+      <div>Explore a time period</div>
+      <span id="rangeLabel">1950 – 2014</span>
     </div>
-  </section>
 
-  <section class="writeup">
-    <h2>Our climate explorer</h2>
-    <p>
-      Our project looks at how temperatures have changed across five
-      continents and what might happen in the future. So far, we've
-      built an interactive chart where users can compare regions,
-      hover over lines, and explore different years. For our final
-      project, we'll use CMIP6 climate data to show historical trends
-      and future projections. The biggest challenge will be processing
-      the data and making the results easy to understand. Right now,
-      we're using demo data to test the website, and we'll replace
-      it with real data for the final version.
-    </p>
-  </section>
+    <div class="sliders">
+      <label>
+        Start year
+        <input type="range" id="startYear">
+      </label>
 
-  <section class="dataset">
-    <h2>Dataset & Methodology</h2>
-    <p>
-      <strong>Planned dataset:</strong>
-      CMIP6 (Coupled Model Intercomparison Project Phase 6),
-      CESM2-WACCM climate model.
-      We plan to analyze near-surface air temperature (tas)
-      across North America, South America, Europe, Africa,
-      and Asia.
-    </p>
-    <p>
-      <strong>Time periods:</strong>
-      Historical simulations from 1950–2014 and future projections
-      from 2020–2099 under SSP5-8.5.
-      Temperature anomalies will be calculated relative to
-      the 1951–1980 baseline.
-    </p>
-    <p>
-      <strong>Source:</strong>
-      <a href="https://console.cloud.google.com/storage/browser/cmip6"
-         target="_blank" rel="noopener noreferrer">
-        NOAA Public CMIP6 Dataset on Google Cloud
-      </a>.
-      Continental aggregation and the final model data have not
-      yet been integrated into this prototype.
-    </p>
-  </section>
+      <label>
+        End year
+        <input type="range" id="endYear">
+      </label>
+    </div>
+  </div>
 
-  <footer>
-    <span>DATA DUMPLINGS</span>
-    <span>Climate Change · Global Temperature Trends</span>
-  </footer>
+  <div class="disclosure">
+    <strong>Prototype data notice:</strong>
+    The curves currently use illustrative demo values to test
+    the chart and interactions. They are not actual CMIP6
+    model results or observed climate data.
+  </div>
+
+</section>
+
+<section class="writeup">
+  <h2>Our climate explorer</h2>
+
+  <p>
+    We've built the first version of our climate explorer to
+    compare warming across five continents.
+    The chart lets users hover over lines, highlight a region,
+    and change the year range.
+    We also added historical and future views to make the
+    trends easier to explore.
+    Right now, we're using clearly labeled demo data while
+    we prepare the real CMIP6 dataset.
+    The hardest part will be processing the large climate
+    files into accurate continent-level data.
+    We'll need to calculate temperature anomalies using the
+    same 1951–1980 baseline for every region.
+    We also want to keep the chart easy to read when the
+    five lines overlap.
+    Another challenge is showing future SSP5-8.5 projections
+    clearly without making them look like certain predictions.
+  </p>
+</section>
+
+<section class="dataset">
+  <h2>Dataset &amp; Methodology</h2>
+
+  <p>
+    <strong>Planned dataset:</strong>
+    CMIP6 (Coupled Model Intercomparison Project Phase 6),
+    CESM2-WACCM climate model.
+    Our project focuses on near-surface air temperature
+    (tas) across North America, South America, Europe,
+    Africa, and Asia.
+  </p>
+
+  <p>
+    <strong>Time periods:</strong>
+    Historical 1950–2014 and future 2020–2099
+    under the SSP5-8.5 scenario.
+    We plan to calculate temperature anomalies relative
+    to the 1951–1980 baseline.
+  </p>
+
+  <p>
+    <strong>Data source:</strong>
+    <a href="https://console.cloud.google.com/storage/browser/cmip6"
+       target="_blank" rel="noopener noreferrer">
+      NOAA Public CMIP6 Dataset on Google Cloud
+    </a>.
+    The real model data has not yet been integrated
+    into this initial prototype.
+  </p>
+</section>
+
+<footer>
+  <span>DATA DUMPLINGS</span>
+  <span>Climate Change · Global Temperature Trends</span>
+</footer>
 
 </main>
 
 <script>
-  const continents = [
-    { name: "North America", color: "#4C8178", offset: 0.10, slope: 1.15, phase: 0.2 },
-    { name: "South America", color: "#B39569", offset: -0.10, slope: 0.83, phase: 1.4 },
-    { name: "Europe", color: "#6E8DAA", offset: 0.04, slope: 1.25, phase: 2.7 },
-    { name: "Africa", color: "#B47F89", offset: -0.04, slope: 0.95, phase: 0.9 },
-    { name: "Asia", color: "#8C80A7", offset: 0.08, slope: 1.18, phase: 3.4 }
-  ];
+const continents = [
+  {
+    name: "North America",
+    color: "#4C8178",
+    slope: 1.15,
+    phase: 0.2
+  },
+  {
+    name: "South America",
+    color: "#B39569",
+    slope: 0.83,
+    phase: 1.4
+  },
+  {
+    name: "Europe",
+    color: "#6E8DAA",
+    slope: 1.25,
+    phase: 2.7
+  },
+  {
+    name: "Africa",
+    color: "#B47F89",
+    slope: 0.95,
+    phase: 0.9
+  },
+  {
+    name: "Asia",
+    color: "#8C80A7",
+    slope: 1.18,
+    phase: 3.4
+  }
+];
 
-  let mode = "temperature";
-  let period = "historical";
-  let selected = null;
-  let start = 1950;
-  let end = 2014;
+let metric = "temperature";
+let period = "historical";
+let selected = null;
+let start = 1950;
+let end = 2014;
 
-  const chartElement = document.getElementById("chart");
-  const tooltip = document.getElementById("tooltip");
+const chart = document.getElementById("chart");
+const tooltip = document.getElementById("tooltip");
 
-  // Illustrative prototype values only.
-  // Do not interpret these as actual climate observations
-  // or CESM2-WACCM simulation results.
-  function demoData() {
-    const first = period === "historical" ? 1950 : 2020;
-    const last = period === "historical" ? 2014 : 2099;
+// Demo values only. These are not scientific results.
+function makeDemoData() {
+  const first = period === "historical" ? 1950 : 2020;
+  const last = period === "historical" ? 2014 : 2099;
+  const result = [];
 
-    const rows = [];
+  continents.forEach((c, i) => {
+    for (let year = first; year <= last; year++) {
+      const t = (year - first) / (last - first);
 
-    continents.forEach((continent, index) => {
-      for (let year = first; year <= last; year++) {
-        const progress = (year - first) / (last - first);
+      const wave =
+        Math.sin((year - first) * 0.28 + c.phase) * 0.30 +
+        Math.sin((year - first) * 0.09 + i) * 0.12;
 
-        const wave =
-          Math.sin((year - first) * 0.28 + continent.phase) * 0.34 +
-          Math.sin((year - first) * 0.09 + index) * 0.12;
+      let value;
 
-        let value;
-
-        if (mode === "temperature") {
-          value =
-            (period === "historical" ? -0.7 : 1.0) +
-            progress *
-              continent.slope *
-              (period === "historical" ? 2.0 : 3.5) +
-            continent.offset +
-            wave;
-        } else {
-          value =
-            (period === "historical" ? 1.2 : 5.0) +
-            progress *
-              continent.slope *
-              (period === "historical" ? 5.0 : 7.0) +
-            wave * 0.8;
-        }
-
-        rows.push({
-          year,
-          continent: continent.name,
-          value
-        });
+      if (metric === "temperature") {
+        value =
+          (period === "historical" ? -0.7 : 1.0) +
+          t * c.slope *
+          (period === "historical" ? 2.0 : 3.5) +
+          wave;
+      } else {
+        value =
+          (period === "historical" ? 1.2 : 5.0) +
+          t * c.slope *
+          (period === "historical" ? 5.0 : 7.0) +
+          wave;
       }
-    });
 
-    return rows;
-  }
-
-  function buildLegend() {
-    const legend = document.getElementById("legend");
-    legend.innerHTML = "";
-
-    continents.forEach(continent => {
-      const item = document.createElement("div");
-      item.className = "legend-item";
-
-      item.style.opacity =
-        selected && selected !== continent.name ? "0.35" : "1";
-
-      const dot = document.createElement("span");
-      dot.className = "legend-dot";
-      dot.style.background = continent.color;
-
-      const text = document.createElement("span");
-      text.textContent = continent.name;
-
-      item.appendChild(dot);
-      item.appendChild(text);
-
-      item.addEventListener("click", () => {
-        selected =
-          selected === continent.name ? null : continent.name;
-        render();
+      result.push({
+        year,
+        continent: c.name,
+        value
       });
+    }
+  });
 
-      legend.appendChild(item);
-    });
-  }
+  return result;
+}
 
-  function updateControls() {
-    document.getElementById("tempBtn").classList.toggle(
-      "active", mode === "temperature"
-    );
-    document.getElementById("co2Btn").classList.toggle(
-      "active", mode === "co2"
-    );
-    document.getElementById("histBtn").classList.toggle(
-      "active", period === "historical"
-    );
-    document.getElementById("futureBtn").classList.toggle(
-      "active", period === "future"
-    );
+function updateButtons() {
+  document.getElementById("tempBtn")
+    .classList.toggle("active", metric === "temperature");
 
-    document.getElementById("chart-title").textContent =
-      mode === "temperature"
-        ? "Temperature trends by continent"
-        : "CO₂ trends by continent — demo";
+  document.getElementById("co2Btn")
+    .classList.toggle("active", metric === "co2");
 
-    document.getElementById("chart-note").textContent =
-      (period === "historical"
-        ? "Historical period · 1950–2014"
-        : "Future scenario · 2020–2099 · SSP5-8.5") +
-      " · Illustrative prototype data";
-  }
+  document.getElementById("histBtn")
+    .classList.toggle("active", period === "historical");
 
-  function updateSliders() {
-    const minYear = period === "historical" ? 1950 : 2020;
-    const maxYear = period === "historical" ? 2014 : 2099;
+  document.getElementById("futureBtn")
+    .classList.toggle("active", period === "future");
 
-    const startSlider = document.getElementById("startYear");
-    const endSlider = document.getElementById("endYear");
+  document.getElementById("chartTitle").textContent =
+    metric === "temperature"
+      ? "Temperature trends by continent"
+      : "CO₂ trends by continent — demo";
 
-    startSlider.min = minYear;
-    startSlider.max = maxYear - 1;
-    startSlider.value = start;
+  document.getElementById("chartNote").textContent =
+    (period === "historical"
+      ? "Historical · 1950–2014"
+      : "Future · 2020–2099 · SSP5-8.5") +
+    " · Illustrative demo data";
+}
 
-    endSlider.min = minYear + 1;
-    endSlider.max = maxYear;
-    endSlider.value = end;
+function updateSliders() {
+  const min = period === "historical" ? 1950 : 2020;
+  const max = period === "historical" ? 2014 : 2099;
 
-    document.getElementById("rangeLabel").textContent =
-      `${start} – ${end}`;
-  }
+  const a = document.getElementById("startYear");
+  const b = document.getElementById("endYear");
 
-  function render() {
-    updateControls();
-    updateSliders();
-    buildLegend();
+  a.min = min;
+  a.max = max - 1;
+  a.value = start;
 
-    d3.select(chartElement).select("svg").remove();
+  b.min = min + 1;
+  b.max = max;
+  b.value = end;
 
-    const width = 1040;
-    const height = 500;
+  document.getElementById("rangeLabel").textContent =
+    start + " – " + end;
+}
 
-    const margin = {
-      top: 25,
-      right: 30,
-      bottom: 48,
-      left: 70
+function drawLegend() {
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+
+  continents.forEach(c => {
+    const button = document.createElement("button");
+
+    if (selected === c.name) {
+      button.classList.add("selected");
+    }
+
+    button.style.opacity =
+      selected && selected !== c.name ? "0.4" : "1";
+
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.style.background = c.color;
+
+    const name = document.createElement("span");
+    name.textContent = c.name;
+
+    button.appendChild(dot);
+    button.appendChild(name);
+
+    button.onclick = () => {
+      selected = selected === c.name ? null : c.name;
+      render();
     };
 
-    const data = demoData().filter(
-      d => d.year >= start && d.year <= end
+    legend.appendChild(button);
+  });
+}
+
+function render() {
+  updateButtons();
+  updateSliders();
+  drawLegend();
+
+  d3.select(chart).select("svg").remove();
+
+  const width = 1040;
+  const height = 470;
+
+  const margin = {
+    top: 25,
+    right: 25,
+    bottom: 48,
+    left: 70
+  };
+
+  const data = makeDemoData().filter(
+    d => d.year >= start && d.year <= end
+  );
+
+  const svg = d3.select(chart)
+    .insert("svg", ":first-child")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("role", "img")
+    .attr("aria-label", "Interactive illustrative climate chart");
+
+  const x = d3.scaleLinear()
+    .domain([start, end])
+    .range([margin.left, width - margin.right]);
+
+  const extent = d3.extent(data, d => d.value);
+
+  const padding = Math.max(
+    (extent[1] - extent[0]) * 0.15,
+    0.25
+  );
+
+  const y = d3.scaleLinear()
+    .domain([
+      extent[0] - padding,
+      extent[1] + padding
+    ])
+    .range([height - margin.bottom, margin.top]);
+
+  svg.append("g")
+    .attr(
+      "transform",
+      `translate(0,${height - margin.bottom})`
+    )
+    .call(
+      d3.axisBottom(x)
+        .ticks(Math.min(8, end - start))
+        .tickFormat(d3.format("d"))
+    )
+    .call(g => g.select(".domain")
+      .attr("stroke", "#bdcec5"))
+    .call(g => g.selectAll("text")
+      .attr("fill", "#718b84"));
+
+  svg.append("g")
+    .attr(
+      "transform",
+      `translate(${margin.left},0)`
+    )
+    .call(
+      d3.axisLeft(y)
+        .ticks(6)
+        .tickSize(
+          -(width - margin.left - margin.right)
+        )
+    )
+    .call(g => g.select(".domain").remove())
+    .call(g => g.selectAll(".tick line")
+      .attr("stroke", "#e0eae4")
+      .attr("stroke-dasharray", "4,6"))
+    .call(g => g.selectAll("text")
+      .attr("fill", "#718b84"));
+
+  svg.append("text")
+    .attr(
+      "transform",
+      `translate(18,${height / 2}) rotate(-90)`
+    )
+    .attr("text-anchor", "middle")
+    .attr("fill", "#718b84")
+    .attr("font-size", 12)
+    .text(
+      metric === "temperature"
+        ? "Temperature anomaly (°C)"
+        : "Illustrative CO₂ values (arbitrary units)"
     );
 
-    const svg = d3.select(chartElement)
-      .insert("svg", ":first-child")
-      .attr("viewBox", `0 0 ${width} ${height}`)
-      .attr("role", "img")
-      .attr("aria-label", "Interactive demo line chart of five continents");
+  const line = d3.line()
+    .x(d => x(d.year))
+    .y(d => y(d.value))
+    .curve(d3.curveMonotoneX);
 
-    const x = d3.scaleLinear()
-      .domain([start, end])
-      .range([margin.left, width - margin.right]);
+  const guide = svg.append("line")
+    .attr("y1", margin.top)
+    .attr("y2", height - margin.bottom)
+    .attr("stroke", "#a0b9ae")
+    .attr("stroke-dasharray", "4,5")
+    .style("display", "none");
 
-    const extent = d3.extent(data, d => d.value);
-    const padding = Math.max((extent[1] - extent[0]) * 0.14, 0.3);
+  const points = svg.append("g");
 
-    const y = d3.scaleLinear()
-      .domain([extent[0] - padding, extent[1] + padding])
-      .range([height - margin.bottom, margin.top]);
+  continents.forEach(c => {
+    const series = data.filter(
+      d => d.continent === c.name
+    );
 
-    const xAxis = d3.axisBottom(x)
-      .ticks(Math.min(8, end - start))
-      .tickFormat(d3.format("d"));
+    svg.append("path")
+      .datum(series)
+      .attr("fill", "none")
+      .attr("stroke", c.color)
+      .attr(
+        "stroke-width",
+        selected === c.name ? 5 : 3.3
+      )
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr(
+        "opacity",
+        selected && selected !== c.name ? 0.14 : 0.95
+      )
+      .attr("d", line);
+  });
 
-    const yAxis = d3.axisLeft(y)
-      .ticks(6)
-      .tickSize(-(width - margin.left - margin.right));
+  svg.append("rect")
+    .attr("x", margin.left)
+    .attr("y", margin.top)
+    .attr("width", width - margin.left - margin.right)
+    .attr("height", height - margin.top - margin.bottom)
+    .attr("fill", "transparent")
+    .style("cursor", "crosshair")
+    .on("mousemove", function(event) {
+      const [px] = d3.pointer(event, this);
 
-    svg.append("g")
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(xAxis)
-      .call(g => g.select(".domain").attr("stroke", "#b9cdc5"))
-      .call(g => g.selectAll(".tick line").attr("stroke", "#b9cdc5"))
-      .call(g => g.selectAll("text").attr("fill", "#718b84").attr("font-size", 12));
-
-    svg.append("g")
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(yAxis)
-      .call(g => g.select(".domain").remove())
-      .call(g => g.selectAll(".tick line")
-        .attr("stroke", "#dce7e1")
-        .attr("stroke-dasharray", "4,7"))
-      .call(g => g.selectAll("text")
-        .attr("fill", "#718b84")
-        .attr("font-size", 12));
-
-    svg.append("text")
-      .attr("transform", `translate(20,${height / 2}) rotate(-90)`)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#718b84")
-      .attr("font-size", 13)
-      .text(
-        mode === "temperature"
-          ? "Temperature anomaly (°C)"
-          : "Illustrative CO₂ values (arbitrary units)"
+      const year = Math.max(
+        start,
+        Math.min(
+          end,
+          Math.round(x.invert(px + margin.left))
+        )
       );
 
-    const line = d3.line()
-      .x(d => x(d.year))
-      .y(d => y(d.value))
-      .curve(d3.curveMonotoneX);
-
-    const guide = svg.append("line")
-      .attr("stroke", "#9bb7ac")
-      .attr("stroke-dasharray", "4,5")
-      .attr("y1", margin.top)
-      .attr("y2", height - margin.bottom)
-      .style("display", "none");
-
-    continents.forEach(continent => {
-      const series = data.filter(
-        d => d.continent === continent.name
+      const values = data.filter(
+        d => d.year === year &&
+        (!selected || d.continent === selected)
       );
 
-      const group = svg.append("g");
+      guide
+        .attr("x1", x(year))
+        .attr("x2", x(year))
+        .style("display", null);
 
-      group.append("path")
-        .datum(series)
-        .attr("fill", "none")
-        .attr("stroke", continent.color)
-        .attr("stroke-width",
-          selected === continent.name ? 5 : 3.5)
-        .attr("stroke-linecap", "round")
-        .attr("stroke-linejoin", "round")
-        .attr("opacity",
-          selected && selected !== continent.name ? 0.13 : 0.95)
-        .attr("d", line);
+      points.selectAll("circle")
+        .data(values, d => d.continent)
+        .join("circle")
+        .attr("cx", d => x(d.year))
+        .attr("cy", d => y(d.value))
+        .attr("r", 5)
+        .attr(
+          "fill",
+          d => continents.find(
+            c => c.name === d.continent
+          ).color
+        )
+        .attr("stroke", "white")
+        .attr("stroke-width", 2);
 
-      group.append("path")
-        .datum(series)
-        .attr("fill", "none")
-        .attr("stroke", "transparent")
-        .attr("stroke-width", 20)
-        .attr("d", line)
-        .style("cursor", "crosshair")
-        .on("mousemove", function(event) {
-          const [mx] = d3.pointer(event, svg.node());
-          const year = Math.max(
-            start,
-            Math.min(end, Math.round(x.invert(mx)))
-          );
+      tooltip.innerHTML =
+        "<strong>" + year + "</strong><br>" +
+        values.map(d =>
+          d.continent + ": " +
+          d.value.toFixed(2) +
+          (metric === "temperature" ? " °C" : " (demo)")
+        ).join("<br>");
 
-          const point = series.find(d => d.year === year);
-          if (!point) return;
+      const bounds = chart.getBoundingClientRect();
 
-          guide
-            .attr("x1", x(year))
-            .attr("x2", x(year))
-            .style("display", null);
+      tooltip.style.opacity = "1";
+      tooltip.style.left =
+        Math.max(
+          0,
+          Math.min(
+            event.clientX - bounds.left + 14,
+            bounds.width - 190
+          )
+        ) + "px";
 
-          const bounds = chartElement.getBoundingClientRect();
-          const localX = event.clientX - bounds.left;
-          const localY = event.clientY - bounds.top;
-
-          tooltip.innerHTML =
-            `<strong>${continent.name}</strong><br>` +
-            `${year} · ${point.value.toFixed(2)}` +
-            (mode === "temperature" ? " °C" : " (demo)");
-
-          tooltip.style.opacity = "1";
-          tooltip.style.left =
-            Math.min(localX + 14, bounds.width - 175) + "px";
-          tooltip.style.top =
-            Math.max(0, localY - 65) + "px";
-        })
-        .on("mouseleave", function() {
-          tooltip.style.opacity = "0";
-          guide.style("display", "none");
-        })
-        .on("click", function() {
-          selected =
-            selected === continent.name ? null : continent.name;
-          render();
-        });
+      tooltip.style.top =
+        Math.max(
+          0,
+          event.clientY - bounds.top - 60
+        ) + "px";
+    })
+    .on("mouseleave", () => {
+      tooltip.style.opacity = "0";
+      guide.style("display", "none");
+      points.selectAll("*").remove();
     });
-  }
+}
 
-  document.getElementById("tempBtn").onclick = () => {
-    mode = "temperature";
-    render();
-  };
-
-  document.getElementById("co2Btn").onclick = () => {
-    mode = "co2";
-    render();
-  };
-
-  function switchPeriod(next) {
-    period = next;
-    start = next === "historical" ? 1950 : 2020;
-    end = next === "historical" ? 2014 : 2099;
-    selected = null;
-    render();
-  }
-
-  document.getElementById("histBtn").onclick = () =>
-    switchPeriod("historical");
-
-  document.getElementById("futureBtn").onclick = () =>
-    switchPeriod("future");
-
-  document.getElementById("startYear").oninput = function() {
-    start = Math.min(Number(this.value), end - 1);
-    render();
-  };
-
-  document.getElementById("endYear").oninput = function() {
-    end = Math.max(Number(this.value), start + 1);
-    render();
-  };
-
+document.getElementById("tempBtn").onclick = () => {
+  metric = "temperature";
   render();
+};
+
+document.getElementById("co2Btn").onclick = () => {
+  metric = "co2";
+  render();
+};
+
+function switchPeriod(next) {
+  period = next;
+  start = next === "historical" ? 1950 : 2020;
+  end = next === "historical" ? 2014 : 2099;
+  selected = null;
+  render();
+}
+
+document.getElementById("histBtn").onclick = () => {
+  switchPeriod("historical");
+};
+
+document.getElementById("futureBtn").onclick = () => {
+  switchPeriod("future");
+};
+
+document.getElementById("startYear").oninput = function() {
+  start = Math.min(Number(this.value), end - 1);
+  render();
+};
+
+document.getElementById("endYear").oninput = function() {
+  end = Math.max(Number(this.value), start + 1);
+  render();
+};
+
+render();
 </script>
 </body>
 </html>
+
 
