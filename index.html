@@ -1,133 +1,795 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Climate Change: Global Temperature Trends and Future Projections | Data Dumplings</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"><style>:root{--bg:#0a1019;--panel:#111b29;--line:#29364a;--muted:#92a3b7;--white:#eef5f6;--mint:#a9e8d0;--gold:#f3cb8c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif}.ambient{position:absolute;top:0;left:0;right:0;height:680px;pointer-events:none;background:radial-gradient(ellipse at 75% 5%,#1d3c42 0,transparent 47%),radial-gradient(ellipse at 10% 15%,#1b2b40 0,transparent 45%);opacity:.8}.shell{max-width:1200px;margin:auto;padding:30px 35px;position:relative}.top,.dash-top,.toolbar,.chart-heading,.range-top,.range-values,footer{display:flex;align-items:center;justify-content:space-between;gap:16px}.top{border-bottom:1px solid #ffffff1c;padding-bottom:24px}.brand{font:700 20px 'Space Grotesk',sans-serif;letter-spacing:.06em;color:var(--mint);text-decoration:none}.brand span{color:var(--white)}.brand-light{font-weight:400;color:var(--mint)!important}.project-label,.eyebrow,.kicker,.small-sep,.chart-hint,.insight-label,.switch-label,.range-top,.data-pill,.story article>span{font-size:11px;letter-spacing:.15em;font-weight:700;color:var(--muted)}.intro{padding:67px 0 60px}.eyebrow{color:var(--mint);display:flex;align-items:center;gap:10px}.pulse{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}h1,h2,h3,p{margin-top:0}h1{font:600 clamp(52px,8vw,100px)/.98 'Space Grotesk',sans-serif;letter-spacing:-.075em;margin:20px 0 22px}h1 em{font-style:normal;color:var(--mint)}.intro p{color:#b0c0cd;font-size:17px;line-height:1.7;max-width:650px}.dashboard{border:1px solid #35445a;border-radius:19px;background:linear-gradient(150deg,#172334,#101a28 60%);overflow:hidden;box-shadow:0 20px 80px #0005}.dash-top{padding:29px 32px 24px}.kicker{color:var(--mint)}.dash-top h2{font:600 27px 'Space Grotesk',sans-serif;margin:8px 0 0;letter-spacing:-.04em}.data-pill{border:1px solid #3c4b60;border-radius:30px;padding:9px 12px;letter-spacing:.03em;font-size:11px}.toolbar{padding:16px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);flex-wrap:wrap}.tabs,.periods{display:flex;gap:5px;background:#0b1420;border:1px solid #2a394a;border-radius:10px;padding:4px}.tab,.period,#reset{font:600 12px 'DM Sans',sans-serif;border:0;color:#a4b5c5;background:transparent;border-radius:7px;padding:11px 15px;cursor:pointer}.tab.active,.period.active{color:#10231d;background:var(--mint)}.switch-area{display:flex;align-items:center;gap:13px}.insights{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.insight{padding:22px 32px;border-right:1px solid var(--line)}.insight:last-child{border:0}.insight strong{display:block;font:600 20px 'Space Grotesk',sans-serif;margin:9px 0 5px}.insight span{font-size:12px;color:var(--muted)}.chart-wrap{padding:30px 32px 20px;position:relative}.chart-heading h3{font:600 21px 'Space Grotesk',sans-serif;margin:7px 0 0}.chart-hint{white-space:nowrap}#chart{width:100%;min-height:390px;margin-top:22px}#chart svg{width:100%;height:auto;overflow:visible}.axis text{fill:#8b9fb3;font-size:12px}.axis path,.axis line{stroke:#3b4c61}.grid line{stroke:#304054;stroke-dasharray:3 5}.grid path{display:none}.series{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;transition:opacity .2s,stroke-width .2s}.legend{display:flex;flex-wrap:wrap;gap:9px;margin:8px 0 25px}.legend button{display:flex;align-items:center;gap:9px;background:#0d1825;border:1px solid #2d4053;color:#c6d4dd;border-radius:22px;padding:9px 13px;cursor:pointer;font:600 12px 'DM Sans',sans-serif}.legend button.selected{background:#233b43;border-color:var(--mint);color:white}.swatch{height:9px;width:9px;border-radius:50%}.range-section{border-top:1px solid var(--line);padding:22px 0 12px}.range-top{font-size:11px}#reset{padding:3px 0;color:var(--mint)}.range-control{position:relative;height:36px;margin:14px 8px 0}.range-track,.range-fill{position:absolute;top:16px;height:5px;border-radius:5px;left:0;right:0;background:#354457}.range-fill{background:var(--mint);right:auto}.range-control input{position:absolute;top:0;left:0;width:100%;height:36px;margin:0;pointer-events:none;appearance:none;background:none}.range-control input::-webkit-slider-thumb{appearance:none;width:17px;height:17px;border:3px solid var(--mint);background:#0e1a27;border-radius:50%;pointer-events:auto;cursor:grab;box-shadow:0 0 0 5px #a9e8d01a}.range-control input::-moz-range-thumb{width:13px;height:13px;border:3px solid var(--mint);background:#0e1a27;border-radius:50%;pointer-events:auto;cursor:grab}.range-values{color:var(--mint);font:600 12px 'Space Grotesk',sans-serif}.footnote{padding:18px 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;color:#899cae}.story{padding:85px 0}.story h2{font:600 40px 'Space Grotesk',sans-serif;letter-spacing:-.04em;margin:15px 0 28px}.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.story article{border-top:1px solid #415365;padding-top:21px}.story h3{font:600 21px 'Space Grotesk',sans-serif;margin:16px 0 10px}.story p{color:#9cabb9;line-height:1.65;font-size:14px}footer{border-top:1px solid #27384a;padding:25px 0;color:var(--mint);font-size:12px;font-weight:700;letter-spacing:.08em}footer span{color:var(--muted);font-weight:400}.tooltip{position:fixed;pointer-events:none;z-index:10;background:#e8f6ef;color:#132c27;border-radius:10px;padding:12px 15px;box-shadow:0 8px 35px #0008;font-size:12px;min-width:155px}.tooltip strong{font-size:14px;display:block;margin-bottom:5px}.hidden{display:none!important}.empty{position:absolute;inset:95px 20px 155px;background:#101b29f2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;border:1px dashed #4c6176;border-radius:12px}.empty p{color:var(--muted);max-width:550px}.empty code{color:var(--mint);overflow-wrap:anywhere}@media(max-width:720px){.shell{padding:18px}.project-label{display:none}.intro{padding:50px 0 36px}.dash-top,.toolbar,.chart-wrap{padding-left:18px;padding-right:18px}.dash-top h2{font-size:21px}.insights{grid-template-columns:1fr}.insight{padding:14px 18px;border-right:0;border-bottom:1px solid var(--line)}.insight strong{font-size:16px}.story-grid{grid-template-columns:1fr}.chart-hint{display:none}.switch-area{flex-wrap:wrap}#chart{min-height:280px}.footnote{padding:18px}}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Climate Change | Data Dumplings</title>
 
-:root{--bg:#f8f9f4;--panel:#fffefa;--line:#e2e9e2;--muted:#657d79;--white:#193c38;--mint:#b7e5d7;--gold:#d8a962}
-body{background:#f8f9f4;color:#193c38}.ambient{background:radial-gradient(ellipse at 80% 5%,#dcefe8 0,transparent 50%),radial-gradient(ellipse at 10% 15%,#f5e7da 0,transparent 48%);opacity:1}.top{border-color:#dce6df}.brand{color:#277c69}.brand span{color:#193c38}.brand-light{color:#39977e!important}.project-label,.kicker,.chart-hint,.insight-label,.switch-label,.range-top,.data-pill,.story article>span{color:#587a73}.eyebrow{color:#3c987d}.pulse{background:#4ba98d;box-shadow:0 0 12px #80cdb4}h1 em{color:#4a9f85}.intro p{color:#56716d}.dashboard{background:linear-gradient(150deg,#ffffff,#f5faf7 75%);border-color:#d6e5dc;box-shadow:0 18px 60px #294b3d14}.data-pill{border-color:#d6e6dd}.toolbar,.insights,.insight,.footnote{border-color:#e1eae3}.tabs,.periods{background:#eff5ef;border-color:#d8e7df}.tab,.period,#reset{color:#4d746a}.tab.active,.period.active{background:#387f6d;color:white}.insight span,.story p,.footnote{color:#6b837c}.chart-heading h3,.dash-top h2,.story h2,.story h3{color:#193c38}.axis text{fill:#607b75}.axis path,.axis line{stroke:#c6d6cf}.grid line{stroke:#e0eae4}.legend button{background:#f6faf7;border-color:#dbe8df;color:#315e53}.legend button.selected{background:#e1f3e9;border-color:#4c9b7d;color:#1d4e40}.range-section,.story article,footer{border-color:#d9e6df}.range-track{background:#dbe9df}.range-fill{background:#4f9e80}.range-control input::-webkit-slider-thumb{border-color:#4f9e80;background:white;box-shadow:0 0 0 5px #7fbca526}.range-values,footer,#reset{color:#387f6d}footer span{color:#6b837c}.tooltip{background:#193e35;color:#f4fff9;box-shadow:0 10px 30px #274b3c3d}.empty{background:#ffffffed;border-color:#bfd4c8}.empty p{color:#60796e}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 
-/* Compact editorial hero and three-sentence project writeup */
-h1{font-size:clamp(32px,4.1vw,52px);line-height:1.14;letter-spacing:-.045em;max-width:1080px;color:#486B70}h1 em{color:#486B70!important}
-.intro{padding-top:50px;padding-bottom:46px}
-.intro p{max-width:720px}
-.project-writeup{font-size:16px;line-height:1.85;color:#58756d;max-width:850px;margin:0 0 34px}
-@media(max-width:720px){h1{font-size:clamp(29px,7vw,40px)}.intro{padding-top:35px;padding-bottom:32px}.project-writeup{font-size:14px}}
+  <style>
+    :root {
+      --bg: #f8f9f4;
+      --dark: #193c38;
+      --title: #486b70;
+      --muted: #718b84;
+      --line: #d7e2dc;
+      --panel: #fffefa;
+    }
 
-.story h2{font-size:clamp(22px,3vw,30px)!important;letter-spacing:-.025em;margin:12px 0 18px}.story{padding-top:48px;padding-bottom:48px}
- .team-names{font-size:12px;font-weight:500;letter-spacing:.01em;color:#657d79;margin-left:18px} .top{flex-wrap:wrap} @media(max-width:720px){.team-names{margin-left:0;font-size:11px;width:100%}} 
-/* Compact interactive guide */
-.story{padding-top:30px!important;padding-bottom:30px!important}
-.story-grid{gap:12px!important}
-.story article{padding-top:11px!important}
-.story article>span{font-size:10px!important;letter-spacing:.11em!important}
-.story h3{font-size:17px!important;line-height:1.22!important;margin:8px 0 5px!important}
-.story article p{font-size:12px!important;line-height:1.35!important;margin:0!important}
-@media(max-width:720px){.story-grid{gap:8px!important}.story article{padding-top:9px!important}}
-.prototype-notes{padding:22px 0 48px;border-top:1px solid #b9c9c3}.prototype-notes h2{font:600 25px 'Space Grotesk',sans-serif;letter-spacing:-.035em;margin:10px 0 22px}.prototype-columns{display:grid;grid-template-columns:1fr 1fr;gap:26px}.prototype-notes article{padding:16px 0;border-top:1px solid #c6d5ce}.prototype-notes h3{font:600 17px 'Space Grotesk',sans-serif;margin:0 0 9px}.prototype-notes p{font-size:13px;line-height:1.55;color:inherit;opacity:.78;margin:0 0 10px}.dataset-method{margin-top:20px;padding-top:16px;border-top:1px solid #c6d5ce}.dataset-method a{color:#4c8178}.dataset-method code{font-size:12px}@media(max-width:720px){.prototype-columns{grid-template-columns:1fr;gap:4px}.prototype-notes h2{font-size:22px}}
-.dataset-link{font-size:12px!important;margin-top:12px;color:#587a73}.dataset-link a{color:#387f6d;text-decoration:underline}</style><script src="https://cdn.jsdelivr.net/npm/d3@7"></script></head>
-<body><div class="ambient"></div><main class="shell"><header class="top"><a class="brand" href="#"><span>DATA<span class="brand-light"> DUMPLINGS</span></span></a><span class="team-names">Jacey Chow · Weder Qin · Jingyun Xiong · Maggie Shao</span><span class="project-label">INTERACTIVE CLIMATE EXPLORER</span></header><section class="intro"><h1>Climate Change:<br><em>Global Temperature Trends<br>and Future Projections.</em></h1><p>Explore how temperatures have changed across continents — and how they may change under a high-emissions future.</p></section><section class="dashboard"><div class="dash-top"><div><div class="kicker">INTERACTIVE EXPLORER <span class="small-sep">/</span> 01</div><h2>Tracking a warming world</h2></div><div class="data-pill" id="data-status">Checking datasets…</div></div><div class="toolbar"><div class="tabs" role="tablist" aria-label="Metric"><button class="tab active" data-metric="temperature" aria-selected="true">🌡 Temperature</button><button class="tab" data-metric="co2" aria-selected="false">☁ CO₂ emissions</button></div><div class="switch-area"><span class="switch-label">PERIOD</span><div class="periods"><button data-period="historical" class="period active">Historical</button><button data-period="future" class="period">Future · SSP5-8.5</button></div></div></div><div class="insights"><div class="insight"><div class="insight-label">METRIC</div><strong id="metric-label">Temperature anomaly</strong><span id="metric-description">°C relative to dataset baseline</span></div><div class="insight"><div class="insight-label">FOCUS</div><strong id="focus-label">All continents</strong><span>Click a legend item to isolate</span></div><div class="insight"><div class="insight-label">TIME WINDOW</div><strong id="range-label">1950–2014</strong><span>Drag the range handles below</span></div></div><div class="chart-wrap"><div class="chart-heading"><div><div class="kicker">REGIONAL COMPARISON</div><h3 id="chart-title">Temperature anomaly over time</h3></div><span class="chart-hint">HOVER TO EXPLORE ↗</span></div><div id="chart" role="img" aria-label="Interactive time series chart"></div><div class="legend" id="legend"></div><div class="range-section"><div class="range-top"><span>EXPLORE THE TIMELINE</span><button id="reset">↺ Reset view</button></div><div class="range-control"><div class="range-track"></div><div class="range-fill" id="range-fill"></div><input id="from" type="range" min="1950" max="2014" value="1950" aria-label="Start year"><input id="to" type="range" min="1950" max="2014" value="2014" aria-label="End year"></div><div class="range-values"><span id="from-label">1950</span><span id="to-label">2014</span></div></div><div id="empty" class="empty hidden"><h3>Dataset not found</h3><p id="empty-message"></p><code id="expected-file"></code></div></div><div class="footnote"><span id="source-note">Illustrative demo data — NOT actual CMIP6 results</span><span>Model output is not an observed measurement or a certain prediction.</span></div></section><section class="story" aria-label="Project writeup"><span class="kicker">PROJECT OVERVIEW</span><h2>Our climate explorer</h2><p class="project-writeup">Our project explores how temperature anomalies vary across five continents and how regional warming may change in the future. We have built an interactive line chart where visitors can compare regions, hover to inspect values, highlight a continent, and adjust the year range. The website also lets users switch between historical and future views to explore different time periods. For the final project, we plan to use the CMIP6 CESM2-WACCM near-surface air temperature dataset, covering 1950–2014 for historical simulations and 2020–2099 for SSP5-8.5 projections. We will calculate continental temperature anomalies relative to the 1951–1980 baseline. Our main challenge is processing large climate model files into accurate regional time series while making overlapping lines and future projections easy to understand. We also need to communicate that climate projections depend on model assumptions and are not certain predictions. For now, the chart uses illustrative placeholder values rather than real CMIP6 results, and the CO₂ view is also a demo; we will replace these before the final submission.</p><p class="dataset-link">Planned data source: <a href="https://console.cloud.google.com/storage/browser/cmip6" target="_blank" rel="noopener noreferrer">NOAA Public CMIP6 Dataset on Google Cloud</a>.</p></section><footer>DATA DUMPLINGS</footer></main><div id="tooltip" class="tooltip hidden"></div><script>/* Climate Atlas — D3 v7. Replace demo data with your actual CSV files before submitting. */
-const COLORS={"North America":"#4C8178","South America":"#B39569","Europe":"#6E8DAA","Africa":"#B47F89","Asia":"#8C80A7"};
-const NAMES=Object.keys(COLORS);
-const SOURCES={temperature:{historical:"data/temperature_historical.csv",future:"data/temperature_future.csv"},co2:{historical:"data/co2_historical.csv",future:"data/co2_future.csv"}};
-const YEARS={historical:[1950,2014],future:[2020,2099]};
-let state={metric:"temperature",period:"historical",focus:null,from:1950,to:2014};
-let cache=new Map();let data=[];let demo=false;
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-const normalizeName=s=>{let n=String(s||"").trim().toLowerCase();return NAMES.find(x=>x.toLowerCase()===n)||null};
-const numeric=v=>{if(v===null||v===undefined||String(v).trim()==="")return NaN;return +String(v).replace(/,/g,"")};
-function normalize(rows){
-  const out=[];
-  for(const row of rows){
-    const keys=Object.keys(row),get=(...aliases)=>{const k=keys.find(k=>aliases.includes(k.trim().toLowerCase().replace(/[\s_-]+/g,"")));return k?row[k]:undefined};
-    const year=numeric(get("year","time"));
-    const continent=normalizeName(get("continent","region","entity"));
-    const value=numeric(get("value","anomaly","temperatureanomaly","tempanomaly","co2","co2emissions","emissions"));
-    if(continent&&Number.isFinite(year)&&Number.isFinite(value))out.push({year,continent,value});
-    // Also support wide CSV: year,Asia,Africa,Europe,North America,South America
-    if(!continent&&Number.isFinite(year))for(const name of NAMES){const key=keys.find(k=>normalizeName(k)===name);if(key&&Number.isFinite(numeric(row[key])))out.push({year,continent:name,value:numeric(row[key])});}
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--dark);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .ambient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 540px;
+      background:
+        radial-gradient(ellipse at 85% 5%, #dcefe9, transparent 58%),
+        radial-gradient(ellipse at 10% 10%, #f4e9de, transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: auto;
+      padding: 24px 35px 50px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -.03em;
+    }
+
+    .team {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--muted);
+    }
+
+    .intro {
+      padding: 52px 0 38px;
+    }
+
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(30px, 4.1vw, 52px);
+      line-height: 1.13;
+      letter-spacing: -.045em;
+      font-weight: 700;
+      color: var(--title);
+      max-width: 1000px;
+      margin: 0 0 20px;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .dashboard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 12px 38px #193c3808;
+    }
+
+    .dash-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 23px;
+      letter-spacing: -.035em;
+      margin: 8px 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .control-group {
+      display: flex;
+      gap: 3px;
+      background: #eff3ee;
+      padding: 4px;
+      border-radius: 9px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 13px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    button.active {
+      background: white;
+      color: var(--dark);
+      box-shadow: 0 2px 8px #0000000b;
+    }
+
+    .chart-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 8px 0 18px;
+      line-height: 1.6;
+    }
+
+    #chart {
+      position: relative;
+      width: 100%;
+    }
+
+    #chart svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      display: block;
+    }
+
+    .tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: #193c38;
+      color: white;
+      padding: 11px 14px;
+      border-radius: 9px;
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 0;
+      z-index: 5;
+      box-shadow: 0 8px 24px #00000020;
+      white-space: nowrap;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 14px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--dark);
+      transition: opacity .2s;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .range-section {
+      border-top: 1px solid var(--line);
+      margin-top: 15px;
+      padding-top: 21px;
+    }
+
+    .range-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .range-header span {
+      color: var(--muted);
+    }
+
+    .sliders {
+      display: flex;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .sliders label {
+      flex: 1;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #4c8178;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .disclosure {
+      margin-top: 20px;
+      padding: 13px 16px;
+      background: #f4f3ec;
+      border-radius: 9px;
+      color: #6d786f;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .writeup {
+      padding: 45px 0 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .writeup h2, .dataset h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .writeup p {
+      max-width: 950px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #617d75;
+    }
+
+    .dataset {
+      padding: 30px 0 40px;
+    }
+
+    .dataset p {
+      max-width: 950px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #617d75;
+    }
+
+    .dataset a {
+      color: #486b70;
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .shell { padding: 18px; }
+      .intro { padding: 35px 0 28px; }
+      .dashboard { padding: 16px; }
+      .sliders { flex-direction: column; gap: 12px; }
+      .legend { gap: 12px; }
+      h2 { font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="ambient"></div>
+
+<main class="shell">
+
+  <header class="top">
+    <div>
+      <div class="brand">DATA DUMPLINGS</div>
+      <div class="team">
+        Jacey Chow · Weder Qin · Jingyun Xiong · Maggie Shao
+      </div>
+    </div>
+    <div class="tag">INTERACTIVE CLIMATE EXPLORER</div>
+  </header>
+
+  <section class="intro">
+    <h1>
+      Climate Change: Global Temperature Trends
+      and Future Projections
+    </h1>
+    <p class="subtitle">
+      Exploring how climate patterns differ across five continents,
+      from historical warming to possible future changes.
+    </p>
+  </section>
+
+  <section class="dashboard">
+    <div class="dash-top">
+      <div>
+        <div class="eyebrow">Explore the data</div>
+        <h2 id="chart-title">Temperature trends by continent</h2>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <button id="tempBtn" class="active">Temperature</button>
+          <button id="co2Btn">CO₂</button>
+        </div>
+
+        <div class="control-group">
+          <button id="histBtn" class="active">Historical</button>
+          <button id="futureBtn">Future</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="chart-note" id="chart-note">
+      Historical period · 1950–2014 · Illustrative prototype data
+    </p>
+
+    <div id="chart">
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <div class="legend" id="legend"></div>
+
+    <div class="range-section">
+      <div class="range-header">
+        <div>Explore a time period</div>
+        <span id="rangeLabel">1950 – 2014</span>
+      </div>
+
+      <div class="sliders">
+        <label>
+          Start year
+          <input id="startYear" type="range" min="1950" max="2013" value="1950">
+        </label>
+        <label>
+          End year
+          <input id="endYear" type="range" min="1951" max="2014" value="2014">
+        </label>
+      </div>
+    </div>
+
+    <div class="disclosure">
+      <strong>Prototype data notice:</strong>
+      This chart currently uses illustrative demo values to test the
+      visualization and interactions. These are not actual CMIP6
+      model results or observed temperatures.
+    </div>
+  </section>
+
+  <section class="writeup">
+    <h2>Our climate explorer</h2>
+    <p>
+      Our project looks at how temperatures have changed across five
+      continents and what might happen in the future. So far, we've
+      built an interactive chart where users can compare regions,
+      hover over lines, and explore different years. For our final
+      project, we'll use CMIP6 climate data to show historical trends
+      and future projections. The biggest challenge will be processing
+      the data and making the results easy to understand. Right now,
+      we're using demo data to test the website, and we'll replace
+      it with real data for the final version.
+    </p>
+  </section>
+
+  <section class="dataset">
+    <h2>Dataset & Methodology</h2>
+    <p>
+      <strong>Planned dataset:</strong>
+      CMIP6 (Coupled Model Intercomparison Project Phase 6),
+      CESM2-WACCM climate model.
+      We plan to analyze near-surface air temperature (tas)
+      across North America, South America, Europe, Africa,
+      and Asia.
+    </p>
+    <p>
+      <strong>Time periods:</strong>
+      Historical simulations from 1950–2014 and future projections
+      from 2020–2099 under SSP5-8.5.
+      Temperature anomalies will be calculated relative to
+      the 1951–1980 baseline.
+    </p>
+    <p>
+      <strong>Source:</strong>
+      <a href="https://console.cloud.google.com/storage/browser/cmip6"
+         target="_blank" rel="noopener noreferrer">
+        NOAA Public CMIP6 Dataset on Google Cloud
+      </a>.
+      Continental aggregation and the final model data have not
+      yet been integrated into this prototype.
+    </p>
+  </section>
+
+  <footer>
+    <span>DATA DUMPLINGS</span>
+    <span>Climate Change · Global Temperature Trends</span>
+  </footer>
+
+</main>
+
+<script>
+  const continents = [
+    { name: "North America", color: "#4C8178", offset: 0.10, slope: 1.15, phase: 0.2 },
+    { name: "South America", color: "#B39569", offset: -0.10, slope: 0.83, phase: 1.4 },
+    { name: "Europe", color: "#6E8DAA", offset: 0.04, slope: 1.25, phase: 2.7 },
+    { name: "Africa", color: "#B47F89", offset: -0.04, slope: 0.95, phase: 0.9 },
+    { name: "Asia", color: "#8C80A7", offset: 0.08, slope: 1.18, phase: 3.4 }
+  ];
+
+  let mode = "temperature";
+  let period = "historical";
+  let selected = null;
+  let start = 1950;
+  let end = 2014;
+
+  const chartElement = document.getElementById("chart");
+  const tooltip = document.getElementById("tooltip");
+
+  // Illustrative prototype values only.
+  // Do not interpret these as actual climate observations
+  // or CESM2-WACCM simulation results.
+  function demoData() {
+    const first = period === "historical" ? 1950 : 2020;
+    const last = period === "historical" ? 2014 : 2099;
+
+    const rows = [];
+
+    continents.forEach((continent, index) => {
+      for (let year = first; year <= last; year++) {
+        const progress = (year - first) / (last - first);
+
+        const wave =
+          Math.sin((year - first) * 0.28 + continent.phase) * 0.34 +
+          Math.sin((year - first) * 0.09 + index) * 0.12;
+
+        let value;
+
+        if (mode === "temperature") {
+          value =
+            (period === "historical" ? -0.7 : 1.0) +
+            progress *
+              continent.slope *
+              (period === "historical" ? 2.0 : 3.5) +
+            continent.offset +
+            wave;
+        } else {
+          value =
+            (period === "historical" ? 1.2 : 5.0) +
+            progress *
+              continent.slope *
+              (period === "historical" ? 5.0 : 7.0) +
+            wave * 0.8;
+        }
+
+        rows.push({
+          year,
+          continent: continent.name,
+          value
+        });
+      }
+    });
+
+    return rows;
   }
-  return out.sort((a,b)=>a.year-b.year);
-}
-function makeDemo(metric,period){
-  // Illustrative values only; not CMIP6 or observed emissions.
-  const [start,end]=YEARS[period],result=[];
-  const bases={"North America":.18,"South America":.1,"Europe":.14,"Africa":.12,"Asia":.17};
-  const slopes={"North America":1.15,"South America":.85,"Europe":1.25,"Africa":1.05,"Asia":1.2};
-  for(let year=start;year<=end;year++)for(let i=0;i<NAMES.length;i++){
-    const continent=NAMES[i],t=(year-start)/(end-start),noise=Math.sin(year*.47+i*2.2)*.09+Math.sin(year*.16+i)*.06;
-    let value;
-    if(metric==="temperature")value=(period==="historical"?bases[continent]+slopes[continent]*t:1.15+slopes[continent]*3.4*t)+noise;
-    else {const scale=[1.5,.65,1.2,.5,2.3][i];value=(period==="historical"?700+7000*t:8000+8000*t)*scale*(1+.05*Math.sin(year*.21+i));}
-    result.push({year,continent,value});
+
+  function buildLegend() {
+    const legend = document.getElementById("legend");
+    legend.innerHTML = "";
+
+    continents.forEach(continent => {
+      const item = document.createElement("div");
+      item.className = "legend-item";
+
+      item.style.opacity =
+        selected && selected !== continent.name ? "0.35" : "1";
+
+      const dot = document.createElement("span");
+      dot.className = "legend-dot";
+      dot.style.background = continent.color;
+
+      const text = document.createElement("span");
+      text.textContent = continent.name;
+
+      item.appendChild(dot);
+      item.appendChild(text);
+
+      item.addEventListener("click", () => {
+        selected =
+          selected === continent.name ? null : continent.name;
+        render();
+      });
+
+      legend.appendChild(item);
+    });
   }
-  return result;
-}
-async function load(){
-  const key=`${state.metric}-${state.period}`;
-  if(!cache.has(key)){
-    let rows=[];let illustrative=false;
-    try{const res=await fetch(SOURCES[state.metric][state.period],{cache:"no-store"});if(!res.ok)throw new Error(res.status);rows=normalize(d3.csvParse(await res.text()));if(!rows.length)throw new Error("No matching rows");}
-    catch(e){illustrative=true;rows=makeDemo(state.metric,state.period);}
-    cache.set(key,{rows,illustrative});
+
+  function updateControls() {
+    document.getElementById("tempBtn").classList.toggle(
+      "active", mode === "temperature"
+    );
+    document.getElementById("co2Btn").classList.toggle(
+      "active", mode === "co2"
+    );
+    document.getElementById("histBtn").classList.toggle(
+      "active", period === "historical"
+    );
+    document.getElementById("futureBtn").classList.toggle(
+      "active", period === "future"
+    );
+
+    document.getElementById("chart-title").textContent =
+      mode === "temperature"
+        ? "Temperature trends by continent"
+        : "CO₂ trends by continent — demo";
+
+    document.getElementById("chart-note").textContent =
+      (period === "historical"
+        ? "Historical period · 1950–2014"
+        : "Future scenario · 2020–2099 · SSP5-8.5") +
+      " · Illustrative prototype data";
   }
-  ({rows:data,illustrative:demo}=cache.get(key));
-  const [min,max]=d3.extent(data,d=>d.year);state.from=min;state.to=max;state.focus=null;
-  sync();render();
-}
-function sync(){
-  $$('.tab').forEach(b=>{let active=b.dataset.metric===state.metric;b.classList.toggle('active',active);b.setAttribute('aria-selected',active)});
-  $$('.period').forEach(b=>b.classList.toggle('active',b.dataset.period===state.period));
-  const label=state.metric==='temperature'?'Temperature anomaly':'CO₂ emissions';
-  const unit=state.metric==='temperature'?'°C':'Mt CO₂ / year';
-  $('#metric-label').textContent=label;$('#metric-description').textContent=unit;
-  $('#chart-title').textContent=label+' over time';
-  $('#focus-label').textContent=state.focus||'All continents';
-  $('#range-label').textContent=`${state.from}–${state.to}`;
-  $('#data-status').textContent=demo?'⚠ ILLUSTRATIVE DEMO DATA':'● CSV DATA LOADED';
-  $('#data-status').style.color=demo?'#f3cb8c':'#a9e8d0';
-  $('#source-note').textContent=demo?'Illustrative demo data — NOT actual climate measurements':state.metric==='temperature'?'Source: CMIP6 · CESM2-WACCM (verify units and baseline)':'Source: supplied emissions CSV (verify provenance and units)';
-  const [min,max]=d3.extent(data,d=>d.year);
-  for(const id of ['from','to']){$('#'+id).min=min;$('#'+id).max=max;$('#'+id).value=state[id]}
-  $('#from-label').textContent=state.from;$('#to-label').textContent=state.to;
-  const span=max-min||1;$('#range-fill').style.left=`${(state.from-min)/span*100}%`;$('#range-fill').style.width=`${(state.to-state.from)/span*100}%`;
-}
-function render(){
-  sync();
-  const chart=$('#chart');chart.innerHTML='';
-  const width=Math.max(330,chart.clientWidth),height=420;
-  const m={top:20,right:24,bottom:54,left:68};
-  const svg=d3.select(chart).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('aria-label','Interactive line chart of climate data');
-  const plot=data.filter(d=>d.year>=state.from&&d.year<=state.to);
-  const x=d3.scaleLinear().domain([state.from,state.to]).range([m.left,width-m.right]);
-  let ext=d3.extent(plot,d=>d.value);if(!Number.isFinite(ext[0]))ext=[0,1];
-  const pad=Math.max(.05,(ext[1]-ext[0])*.15);
-  const y=d3.scaleLinear().domain([Math.min(0,ext[0]-pad),ext[1]+pad]).nice().range([height-m.bottom,m.top]);
-  svg.append('g').attr('class','grid').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(6).tickSize(-(width-m.left-m.right)).tickFormat(''));
-  svg.append('g').attr('class','axis').attr('transform',`translate(0,${height-m.bottom})`).call(d3.axisBottom(x).ticks(Math.min(8,state.to-state.from)).tickFormat(d3.format('d')));
-  svg.append('g').attr('class','axis').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(6));
-  svg.append('text').attr('x',width/2).attr('y',height-7).attr('fill','#9db0c1').attr('text-anchor','middle').attr('font-size',12).text('Year');
-  svg.append('text').attr('transform',`translate(17,${height/2}) rotate(-90)`).attr('fill','#9db0c1').attr('text-anchor','middle').attr('font-size',12).text(state.metric==='temperature'?'Temperature anomaly (°C)':'CO₂ emissions (Mt CO₂ / year)');
-  const line=d3.line().defined(d=>Number.isFinite(d.value)).x(d=>x(d.year)).y(d=>y(d.value));
-  for(const name of NAMES){
-    const values=plot.filter(d=>d.continent===name);
-    svg.append('path').datum(values).attr('class','series').attr('stroke',COLORS[name]).attr('d',line).attr('opacity',state.focus&&state.focus!==name?.13:1).attr('stroke-width',state.focus===name?4:3);
+
+  function updateSliders() {
+    const minYear = period === "historical" ? 1950 : 2020;
+    const maxYear = period === "historical" ? 2014 : 2099;
+
+    const startSlider = document.getElementById("startYear");
+    const endSlider = document.getElementById("endYear");
+
+    startSlider.min = minYear;
+    startSlider.max = maxYear - 1;
+    startSlider.value = start;
+
+    endSlider.min = minYear + 1;
+    endSlider.max = maxYear;
+    endSlider.value = end;
+
+    document.getElementById("rangeLabel").textContent =
+      `${start} – ${end}`;
   }
-  const focusLine=svg.append('line').attr('y1',m.top).attr('y2',height-m.bottom).attr('stroke','#e7f4ec').attr('stroke-dasharray','4 5').attr('opacity',0);
-  const circles=svg.append('g');
-  const overlay=svg.append('rect').attr('x',m.left).attr('y',m.top).attr('width',width-m.left-m.right).attr('height',height-m.top-m.bottom).attr('fill','transparent').style('cursor','crosshair');
-  overlay.on('mousemove',function(event){
-    const [px]=d3.pointer(event,this),year=Math.max(state.from,Math.min(state.to,Math.round(x.invert(px+m.left))));
-    const selected=plot.filter(d=>d.year===year&&(!state.focus||d.continent===state.focus));
-    focusLine.attr('x1',x(year)).attr('x2',x(year)).attr('opacity',1);
-    circles.selectAll('circle').data(selected,d=>d.continent).join('circle').attr('cx',d=>x(d.year)).attr('cy',d=>y(d.value)).attr('r',5).attr('fill',d=>COLORS[d.continent]).attr('stroke','#101b29').attr('stroke-width',2);
-    const html=`<strong>${year}</strong>`+selected.map(d=>`<div style="display:flex;justify-content:space-between;gap:20px;margin-top:4px"><span style="color:${COLORS[d.continent]};filter:brightness(.65)">●</span><span>${d.continent}</span><b>${d.value.toFixed(state.metric==='temperature'?2:0)} ${state.metric==='temperature'?'°C':'Mt'}</b></div>`).join('');
-    const tip=$('#tooltip');tip.innerHTML=html;tip.classList.remove('hidden');tip.style.left=Math.min(event.clientX+18,window.innerWidth-260)+'px';tip.style.top=Math.max(10,event.clientY-30)+'px';
-  }).on('mouseleave',()=>{focusLine.attr('opacity',0);circles.selectAll('*').remove();$('#tooltip').classList.add('hidden')});
-  const legend=d3.select('#legend');legend.selectAll('*').remove();
-  for(const name of NAMES){legend.append('button').attr('class',state.focus===name?'selected':'').html(`<span class="swatch" style="background:${COLORS[name]}"></span>${name}`).on('click',()=>{state.focus=state.focus===name?null:name;render()})}
-}
-$$('.tab').forEach(b=>b.addEventListener('click',()=>{state.metric=b.dataset.metric;load()}));
-$$('.period').forEach(b=>b.addEventListener('click',()=>{state.period=b.dataset.period;load()}));
-for(const id of ['from','to'])$('#'+id).addEventListener('input',e=>{const val=+e.target.value;if(id==='from')state.from=Math.min(val,state.to-1);else state.to=Math.max(val,state.from+1);render()});
-$('#reset').addEventListener('click',()=>{const [a,b]=d3.extent(data,d=>d.year);state.from=a;state.to=b;state.focus=null;render()});
-window.addEventListener('resize',()=>render());load();
-</script></body></html>
+
+  function render() {
+    updateControls();
+    updateSliders();
+    buildLegend();
+
+    d3.select(chartElement).select("svg").remove();
+
+    const width = 1040;
+    const height = 500;
+
+    const margin = {
+      top: 25,
+      right: 30,
+      bottom: 48,
+      left: 70
+    };
+
+    const data = demoData().filter(
+      d => d.year >= start && d.year <= end
+    );
+
+    const svg = d3.select(chartElement)
+      .insert("svg", ":first-child")
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("role", "img")
+      .attr("aria-label", "Interactive demo line chart of five continents");
+
+    const x = d3.scaleLinear()
+      .domain([start, end])
+      .range([margin.left, width - margin.right]);
+
+    const extent = d3.extent(data, d => d.value);
+    const padding = Math.max((extent[1] - extent[0]) * 0.14, 0.3);
+
+    const y = d3.scaleLinear()
+      .domain([extent[0] - padding, extent[1] + padding])
+      .range([height - margin.bottom, margin.top]);
+
+    const xAxis = d3.axisBottom(x)
+      .ticks(Math.min(8, end - start))
+      .tickFormat(d3.format("d"));
+
+    const yAxis = d3.axisLeft(y)
+      .ticks(6)
+      .tickSize(-(width - margin.left - margin.right));
+
+    svg.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(xAxis)
+      .call(g => g.select(".domain").attr("stroke", "#b9cdc5"))
+      .call(g => g.selectAll(".tick line").attr("stroke", "#b9cdc5"))
+      .call(g => g.selectAll("text").attr("fill", "#718b84").attr("font-size", 12));
+
+    svg.append("g")
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(yAxis)
+      .call(g => g.select(".domain").remove())
+      .call(g => g.selectAll(".tick line")
+        .attr("stroke", "#dce7e1")
+        .attr("stroke-dasharray", "4,7"))
+      .call(g => g.selectAll("text")
+        .attr("fill", "#718b84")
+        .attr("font-size", 12));
+
+    svg.append("text")
+      .attr("transform", `translate(20,${height / 2}) rotate(-90)`)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#718b84")
+      .attr("font-size", 13)
+      .text(
+        mode === "temperature"
+          ? "Temperature anomaly (°C)"
+          : "Illustrative CO₂ values (arbitrary units)"
+      );
+
+    const line = d3.line()
+      .x(d => x(d.year))
+      .y(d => y(d.value))
+      .curve(d3.curveMonotoneX);
+
+    const guide = svg.append("line")
+      .attr("stroke", "#9bb7ac")
+      .attr("stroke-dasharray", "4,5")
+      .attr("y1", margin.top)
+      .attr("y2", height - margin.bottom)
+      .style("display", "none");
+
+    continents.forEach(continent => {
+      const series = data.filter(
+        d => d.continent === continent.name
+      );
+
+      const group = svg.append("g");
+
+      group.append("path")
+        .datum(series)
+        .attr("fill", "none")
+        .attr("stroke", continent.color)
+        .attr("stroke-width",
+          selected === continent.name ? 5 : 3.5)
+        .attr("stroke-linecap", "round")
+        .attr("stroke-linejoin", "round")
+        .attr("opacity",
+          selected && selected !== continent.name ? 0.13 : 0.95)
+        .attr("d", line);
+
+      group.append("path")
+        .datum(series)
+        .attr("fill", "none")
+        .attr("stroke", "transparent")
+        .attr("stroke-width", 20)
+        .attr("d", line)
+        .style("cursor", "crosshair")
+        .on("mousemove", function(event) {
+          const [mx] = d3.pointer(event, svg.node());
+          const year = Math.max(
+            start,
+            Math.min(end, Math.round(x.invert(mx)))
+          );
+
+          const point = series.find(d => d.year === year);
+          if (!point) return;
+
+          guide
+            .attr("x1", x(year))
+            .attr("x2", x(year))
+            .style("display", null);
+
+          const bounds = chartElement.getBoundingClientRect();
+          const localX = event.clientX - bounds.left;
+          const localY = event.clientY - bounds.top;
+
+          tooltip.innerHTML =
+            `<strong>${continent.name}</strong><br>` +
+            `${year} · ${point.value.toFixed(2)}` +
+            (mode === "temperature" ? " °C" : " (demo)");
+
+          tooltip.style.opacity = "1";
+          tooltip.style.left =
+            Math.min(localX + 14, bounds.width - 175) + "px";
+          tooltip.style.top =
+            Math.max(0, localY - 65) + "px";
+        })
+        .on("mouseleave", function() {
+          tooltip.style.opacity = "0";
+          guide.style("display", "none");
+        })
+        .on("click", function() {
+          selected =
+            selected === continent.name ? null : continent.name;
+          render();
+        });
+    });
+  }
+
+  document.getElementById("tempBtn").onclick = () => {
+    mode = "temperature";
+    render();
+  };
+
+  document.getElementById("co2Btn").onclick = () => {
+    mode = "co2";
+    render();
+  };
+
+  function switchPeriod(next) {
+    period = next;
+    start = next === "historical" ? 1950 : 2020;
+    end = next === "historical" ? 2014 : 2099;
+    selected = null;
+    render();
+  }
+
+  document.getElementById("histBtn").onclick = () =>
+    switchPeriod("historical");
+
+  document.getElementById("futureBtn").onclick = () =>
+    switchPeriod("future");
+
+  document.getElementById("startYear").oninput = function() {
+    start = Math.min(Number(this.value), end - 1);
+    render();
+  };
+
+  document.getElementById("endYear").oninput = function() {
+    end = Math.max(Number(this.value), start + 1);
+    render();
+  };
+
+  render();
+</script>
+</body>
+</html>
+
